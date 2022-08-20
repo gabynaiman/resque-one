@@ -7,7 +7,7 @@ module Resque
         queue_locker = QueueLocker.new redis, queue
 
         if !job_info.one? || queue_locker.lock(job_info)
-          super queue, klass, *args
+          super queue, job_info.klass, *args
         else
           nil
         end
@@ -31,15 +31,15 @@ module Resque
         job_info = JobInfo.new klass, args
 
         if job_info.one?
-          queue_locker = QueueLocker.new redis, Resque.queue_from_class(klass)
+          queue_locker = QueueLocker.new redis, Resque.queue_from_class(job_info.klass)
           if args.empty?
-            queue_locker.unlock_all klass
+            queue_locker.unlock_all job_info.klass
           else
             queue_locker.unlock job_info
           end
         end
 
-        super klass, *args
+        super job_info.klass, *args
       end
 
       def remove_queue(queue)

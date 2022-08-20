@@ -29,7 +29,7 @@ module Resque
       end
 
       def unlock_all(klass=nil)
-        filter = klass ? "#{queue_key}:#{klass.name}:*" : "#{queue_key}:*"
+        filter = klass ? "#{queue_key}:#{klass.to_s}:*" : "#{queue_key}:*"
         redis.keys(filter).each do |key|
           redis.del key
         end

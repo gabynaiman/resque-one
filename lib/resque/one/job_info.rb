@@ -5,13 +5,11 @@ module Resque
       attr_reader :klass, :id, :args
 
       def self.parse(job_payload)
-        klass = Consty.get job_payload['class']
-        args = job_payload['args']
-        new klass, args
+        new job_payload['class'], job_payload['args']
       end
 
       def initialize(klass, args)
-        @klass = klass
+        @klass = klass.is_a?(Class) ? klass : Consty.get(klass)
 
         if include_plugin_status?
           @id = args.first
