@@ -12,7 +12,7 @@ module Resque
       end
 
       def locked?(job_info)
-        redis.keys(key_for(job_info)).any?
+        !redis.get(key_for(job_info)).nil?
       end
 
       def lock(job_info)
