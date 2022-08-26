@@ -3,6 +3,7 @@ module Resque
     class QueueLocker
 
       PREFIX = 'resque-one'.freeze
+      SCAN_COUNT = 1000
 
       attr_reader :redis, :queue
 
@@ -30,7 +31,7 @@ module Resque
 
       def unlock_all(klass=nil)
         filter = klass ? "#{queue_key}:#{klass.to_s}:*" : "#{queue_key}:*"
-        redis.keys(filter).each do |key|
+        redis.scan_each(match: filter, count: SCAN_COUNT) do |key|
           redis.del key
         end
       end
