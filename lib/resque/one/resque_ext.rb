@@ -31,7 +31,7 @@ module Resque
         job_info = JobInfo.new klass, args
 
         if job_info.one?
-          queue_locker = QueueLocker.new redis, Resque.queue_from_class(job_info.klass)
+          queue_locker = QueueLocker.new redis, queue_from_class(job_info.klass)
           if args.empty?
             queue_locker.unlock_all job_info.klass
           else
