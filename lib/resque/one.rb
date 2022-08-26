@@ -15,5 +15,6 @@ module Resque
 
     attr_config :keyspace, 'resque-one'
     attr_config :scan_count, 1000
+    attr_config :lock_ttl
   end
 end

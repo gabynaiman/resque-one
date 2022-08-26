@@ -100,6 +100,12 @@ describe Jobs::StatusOne do
       assert Jobs::StatusOne.create(args_1)
     end
 
+    it 'TTL expiration' do
+      sleep 1.5
+
+      assert Jobs::StatusOne.create(args_1)
+    end
+
   end
 
 end

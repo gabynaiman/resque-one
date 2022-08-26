@@ -83,6 +83,12 @@ describe Jobs::BasicOne do
       assert Resque.enqueue Jobs::BasicOne, *args_1
     end
 
+    it 'TTL expiration' do
+      sleep 1.5
+
+      assert Resque.enqueue Jobs::BasicOne, *args_1
+    end
+
   end
 
 end

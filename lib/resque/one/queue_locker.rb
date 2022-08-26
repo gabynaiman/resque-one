@@ -18,6 +18,7 @@ module Resque
 
         job_key = key_for job_info
         redis.set job_key, job_info.id
+        redis.expire job_key, Resque::One.lock_ttl if Resque::One.lock_ttl
 
         true
       end

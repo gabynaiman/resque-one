@@ -6,6 +6,10 @@ require 'resque-one'
 require 'resque-status'
 require 'jobs'
 
+Resque::One.configure do |config|
+  config.lock_ttl = 1
+end
+
 class Minitest::Spec
 
   def setup
