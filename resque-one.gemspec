@@ -21,6 +21,7 @@ Gem::Specification.new do |spec|
 
   spec.add_runtime_dependency 'resque', '~> 1.25'
   spec.add_runtime_dependency 'consty', '~> 1.0'
+  spec.add_runtime_dependency 'class_config', '~> 0.0'
 
   spec.add_development_dependency 'resque-status', '~> 0.5'
   spec.add_development_dependency 'rake', '~> 11.0'
